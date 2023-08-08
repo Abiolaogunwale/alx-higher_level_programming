@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 mport random
 number = random.randint(-10, 10)
 if number > 0:
@@ -6,3 +7,4 @@ elif number == 0:
     print(f"The {number} is zero")
 else:
     print(f"The {number} is negative")
+
