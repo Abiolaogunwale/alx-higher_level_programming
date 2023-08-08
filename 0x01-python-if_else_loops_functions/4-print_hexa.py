@@ -1,6 +1,3 @@
 #!/usr/bin/python3
-for i in range(100):
-    if i < 99:
-        print('{:02d},'.format(i), end=" ")
-    else:
-        print('{:d}'.format(i))
+for num in range(99):
+    print('{0:d} = 0x{0:x}'.format(num))
