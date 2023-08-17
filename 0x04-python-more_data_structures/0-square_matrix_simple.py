@@ -2,5 +2,5 @@
 
 def square_matrix_simple(matrix=[]):
     # List comprehension to create a new matrix with elements squared
-    return [[col**2 for col in row] for row in matrix]
+    return [[column**2 for column in row] for row in matrix]
 
