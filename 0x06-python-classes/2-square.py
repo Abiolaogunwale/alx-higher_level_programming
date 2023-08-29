@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-2. Size validation
+ Size validation
 Write a class Square that defines a square by: (based on 1-square.py)
 """
 
@@ -54,4 +54,3 @@ if __name__ == "__main__":
         print(my_square_4.__dict__)
     except Exception as e:
         print(e)
-
