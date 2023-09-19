@@ -1,14 +1,19 @@
 #!/usr/bin/python3
-"""class rectangle"""
-
-
+'''
+    Class Rectangle
+'''
 from models.base import Base
 
 
 class Rectangle(Base):
-    """class rectangle"""
+    '''
+        Defining the Rectangle class
+        Inherits from:
+            Base
+    '''
+
     def __init__(self, width, height, x=0, y=0, id=None):
-        """class rectangle"""
+        ''' Initialize the Rectangle object. '''
         self.width = width
         self.height = height
         self.x = x
@@ -17,112 +22,122 @@ class Rectangle(Base):
 
     @property
     def width(self):
-        """class rectangle"""
+        '''
+            Returning private attribute
+        '''
         return self.__width
 
     @width.setter
     def width(self, value):
-        """class rectangle"""
-        if type(value) != int:
-            raise TypeError("width must be an integer")
-        if value <= 0:
-            raise ValueError("width must be > 0")
+        '''
+            Setting private attribute
+        '''
+        self.setter_validation("width", value)
         self.__width = value
 
     @property
     def height(self):
-        """class rectangle"""
+        '''
+            Returning private attribute
+        '''
         return self.__height
 
     @height.setter
     def height(self, value):
-        """class rectangle"""
-        if type(value) != int:
-            raise TypeError("height must be an integer")
-        if value <= 0:
-            raise ValueError("height must be > 0")
+        '''
+            Setting private attribute
+        '''
+        self.setter_validation("height", value)
         self.__height = value
 
     @property
     def x(self):
-        """class rectangle"""
+        '''
+            Returning private attribute
+        '''
         return self.__x
 
     @x.setter
     def x(self, value):
-        """class rectangle"""
-        if type(value) != int:
-            raise TypeError("x must be an integer")
-        if value < 0:
-            raise ValueError("x must be >= 0")
+        '''
+            Setting private attribute
+        '''
+        self.setter_validation("x", value)
         self.__x = value
 
     @property
     def y(self):
-        """class rectangle"""
+        '''
+            Returning private attribute
+        '''
         return self.__y
 
     @y.setter
     def y(self, value):
-        """class rectangle"""
-        if type(value) != int:
-            raise TypeError("y must be an integer")
-        if value < 0:
-            raise ValueError("y must be >= 0")
+        '''
+            Setting private attribute
+        '''
+        self.setter_validation("y", value)
         self.__y = value
 
     def area(self):
-        """class rectangle"""
-        return (self.__width * self.__height)
+        '''
+            Returns the area of the rectangle
+        '''
+        return (self.height * self.width)
 
     def display(self):
-        """class rectangle"""
-        for k in range(self.__y):
-            print()
-        for i in range(self.__height):
-            for l in range(self.__x):
-                print(' ', end="")
-            for j in range(self.__width):
-                print('#', end="")
-            print()
-
-    def __str__(self):
-        """class rectangle"""
-        return ("[Rectangle] ({}) {}/{} - {}/{}".format(self.id, self.__x,
-                self.__y, self.__width, self.__height))
+        '''
+            Prints to stdout the representation of the rectangle
+        '''
+        rectangle = ""
+        print("\n" * self.y, end="")
+        for i in range(self.height):
+            rectangle += (" " * self.x) + ("#" * self.width) + "\n"
+        print(rectangle, end="")
 
     def update(self, *args, **kwargs):
-        """class rectangle"""
-        lenofargs = len(args)
-        if lenofargs > 0:
+        '''
+            Updates the arguments in the class
+        '''
+        if len(args) == 0:
+            ''' Update class attributes using keyword arguments. '''
+            for key, val in kwargs.items():
+                self.__setattr__(key, val)
+            return
+        try:
+            ''' Update class attributes using positional arguments. '''
             self.id = args[0]
-            lenofargs -= 1
-        if lenofargs > 0:
-            self.__width = args[1]
-            lenofargs -= 1
-        if lenofargs > 0:
-            self.__height = args[2]
-            lenofargs -= 1
-        if lenofargs > 0:
-            self.__x = args[3]
-            lenofargs -= 1
-        if lenofargs > 0:
-            self.__y = args[4]
-        if kwargs:
-            for key, value in kwargs.items():
-                if key == 'x':
-                    self.__x = value
-                if key == 'y':
-                    self.__y = value
-                if key == 'width':
-                    self.__width = value
-                if key == 'height':
-                    self.__height = value
-                if key == 'id':
-                    self.id = value
+            self.width = args[1]
+            self.height = args[2]
+            self.x = args[3]
+            self.y = args[4]
+        except IndexError:
+            pass
 
     def to_dictionary(self):
-        """class rectangle"""
-        dic1 = {"id": self.id, "width": self.__width, "height": self.__height,
-                "x": self.__x, "y": self.__y}
-        return dic1
+        '''
+            Returns a dictionary representation of this class
+        '''
+        return {'x': getattr(self, "x"),
+                'y': getattr(self, "y"),
+                'id': getattr(self, "id"),
+                'height': getattr(self, "height"),
+                'width': getattr(self, "width")}
+
+    @staticmethod
+    def setter_validation(attribute, value):
+        if type(value) != int:
+            raise TypeError("{} must be an integer".format(attribute))
+        if attribute == "x" or attribute == "y":
+            if value < 0:
+                raise ValueError("{} must be >= 0".format(attribute))
+        elif value <= 0:
+            raise ValueError("{} must be > 0".format(attribute))
+
+    def __str__(self):
+        '''
+            Overwritting the string method
+        '''
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(self.id, self.x, self.y,
+                                                       self.width, self.height)
