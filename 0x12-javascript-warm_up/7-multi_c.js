@@ -9,4 +9,3 @@ const display = () => {
 isNaN(occurence)
   ? (console.log('Missing number of occurrences'))
   : (display());
-
